@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.10/index.global.min.js'></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth', // Change 'resourceTimelineWeek' to 'dayGridMonth'
+          events: [  // Initial events 
+            {
+              title: 'Appointment',
+                // Sample date, replace with actual dates
+            }
+          ]
+        });
+        calendar.render();
+
+        // Function to add an event to the calendar
+        function addAppointmentEvent(patientName, appointmentDate) {
+          calendar.addEvent({
+            title: 'Appointment - ' + patientName,
+            start: appointmentDate
+          });
+        }
+
+        // Form submission handling
+        var form = document.getElementById('appointment-form');
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          
+          var patientName = document.getElementById('patientName').value;
+          var appointmentDate = document.getElementById('appointmentDate').value;
+
+          // Call the function to add the event
+          addAppointmentEvent(patientName, appointmentDate);
+
+          // Clear the form
+          form.reset();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id='calendar'></div>
+
+    <div id='appointment-form'>
+      <h2>Schedule an Appointment</h2>
+      <form>
+        <label for='patientName'>Patient's Name:</label>
+        <input type='text' id='patientName' name='patientName' required>
+
+        <label for='appointmentDate'>Appointment Date:</label>
+        <input type='date' id='appointmentDate' name='appointmentDate' required>
+
+        <button type='submit'>Schedule Appointment</button>
+      </form>
+    </div>
+  </body>
+</html>
